@@ -73,7 +73,7 @@ nav{
 .wrapper{
     margin: 20px 50px;
     max-width: 800px;
-    .box{
+    .match-info{
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -81,6 +81,9 @@ nav{
         border-radius: 10px;
         &:hover{
             background-color: rgba(154, 108, 187, 0.178);
+        }
+        &:first-child{
+            background-color: transparent;
         }
         .buttons{
             margin: 10px;
@@ -104,9 +107,6 @@ nav{
                 border-color: rgb(122, 1, 209);
             }
         }
-        &:first-child{
-            background-color: transparent;
-        }
     }
 }
 .right-content{
@@ -118,12 +118,12 @@ nav{
     right: 0;
     .panier{
         background-color: white;
-        height: 90%;
         width: 60%;
         position: absolute;
         bottom: 0;
         left: 50%;
         transform: translate(-50%);
+        transition: transform 0.3s ease-in-out; 
         border-radius: 10px 10px 0 0;
         .bet-title{
             background-color: rgb(122, 1, 209);
@@ -149,4 +149,16 @@ nav{
             }
         }
     }
+}
+.visible{
+    transition: transform 0.3s ease-in-out; 
+    transform: translateY(100%);
+    overflow: hidden;
+    max-height: 300px;
+    // .user-choice{
+    //     overflow-y: auto;
+    // }
+}
+.visible.show{ 
+    transform: translateX(0);
 }
