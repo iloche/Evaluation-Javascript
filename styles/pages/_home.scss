@@ -1,0 +1,152 @@
+body{
+    margin: 0;
+    display: flex;
+    flex-direction: row;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    overflow: hidden;
+}
+header{
+    background: rgb(96,49,130);
+    background: linear-gradient(0deg, rgba(96,49,130,1) 26%, rgba(231,100,226,1) 100%);
+    width: 12%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    img{
+        margin: 20px;
+        cursor: pointer;
+    }
+    i{
+        color: white;
+        cursor: pointer;
+        margin: 50px;
+        font-size: 20px;
+        text-align: center;
+    }
+    .hidden{
+        display: none;
+    }
+}
+main{
+    position: relative;
+}
+nav{
+    background-color: rgba(96, 49, 130, 0.281);
+    height: 50px;
+    display: flex;
+    align-items: center;
+    width: 90vw;
+    a{
+        margin: 15px;
+        color:rgb(96,49,130);
+        text-decoration: none;
+        font-size: 18px;
+        @include transition;
+        &:hover{
+            @include transition;
+            color: white;
+        }
+        &:nth-of-type(1){
+            font-weight: bold;
+            margin-left: 30px;
+        }
+    }
+}
+.team-info{
+    display: flex;
+    width: 20%;
+    background-color: rgba(141, 86, 180, 0.178);
+    border-radius: 0 0 20px 0;
+    h2{
+        font-size: 18px;
+        padding: 15px;
+        margin: 0;
+        font-weight: lighter;
+        border-radius: 0 0 20px 0;
+    }
+    .country{
+        background-color: rgba(96, 49, 130, 0.377);
+    }
+}
+.wrapper{
+    margin: 20px 50px;
+    max-width: 800px;
+    .box{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px;
+        border-radius: 10px;
+        &:hover{
+            background-color: rgba(154, 108, 187, 0.178);
+        }
+        .buttons{
+            margin: 10px;
+            .example{
+                background: transparent;
+                border: none;
+                margin: 0 12px;
+            }
+            .mise{
+                border-radius: 5px;
+                border: 1px solid grey;
+                padding: 10px;
+                cursor: pointer;
+                &:hover{
+                    border-color: rgb(122, 1, 209);
+                    background-color: transparent;
+                }
+            }
+            .active{
+                background-color: rgba(154, 108, 187, 0.342);
+                border-color: rgb(122, 1, 209);
+            }
+        }
+        &:first-child{
+            background-color: transparent;
+        }
+    }
+}
+.right-content{
+    background: url(../../images/bg2.png) top / cover;
+    height: 50%;
+    width: 25%;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    .panier{
+        background-color: white;
+        height: 90%;
+        width: 60%;
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translate(-50%);
+        border-radius: 10px 10px 0 0;
+        .bet-title{
+            background-color: rgb(122, 1, 209);
+            border-radius: 10px 10px 0 0;
+            text-align: center;
+            font-size: 18px;
+            color: white;
+            padding: 5px;
+            margin: 0;
+        }
+        .simulation{
+            background-color: rgba(128, 128, 128, 0.479);
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            .calcul{
+                display: flex;
+                justify-content: space-evenly;
+                align-items: center;
+                input{
+                    width: 20%;
+                }
+            }
+        }
+    }
+}
