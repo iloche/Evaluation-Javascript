@@ -110,12 +110,14 @@ nav{
     }
 }
 .right-content{
-    background: url(../../images/bg2.png) top / cover;
     height: 50%;
     width: 25%;
     position: absolute;
     bottom: 0;
     right: 0;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
     .panier{
         background-color: white;
         width: 60%;
@@ -154,11 +156,17 @@ nav{
     transition: transform 0.3s ease-in-out; 
     transform: translateY(100%);
     overflow: hidden;
-    max-height: 300px;
-    // .user-choice{
-    //     overflow-y: auto;
-    // }
+    height: 0;
+    .user-choice{
+        overflow-y: auto;
+        max-height: 250px;
+        padding: 10px;
+    }
 }
 .visible.show{ 
-    transform: translateX(0);
+    transform: translateY(0);
+    height: 400px;
+}
+.delete-task{
+    cursor: pointer;
 }
