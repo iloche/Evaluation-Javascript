@@ -25,9 +25,6 @@ header{
         font-size: 20px;
         text-align: center;
     }
-    .hidden{
-        display: none;
-    }
 }
 main{
     position: relative;
@@ -127,15 +124,6 @@ nav{
         transform: translate(-50%);
         transition: transform 0.3s ease-in-out; 
         border-radius: 10px 10px 0 0;
-        .bet-title{
-            background-color: rgb(122, 1, 209);
-            border-radius: 10px 10px 0 0;
-            text-align: center;
-            font-size: 18px;
-            color: white;
-            padding: 5px;
-            margin: 0;
-        }
         .simulation{
             background-color: rgba(128, 128, 128, 0.479);
             position: absolute;
@@ -151,6 +139,15 @@ nav{
             }
         }
     }
+}
+.bet-title{
+    background-color: rgb(122, 1, 209);
+    border-radius: 10px 10px 0 0;
+    text-align: center;
+    font-size: 18px;
+    color: white;
+    padding: 5px;
+    margin: 0;
 }
 .visible{
     transition: transform 0.3s ease-in-out; 
@@ -169,4 +166,35 @@ nav{
 }
 .delete-task{
     cursor: pointer;
+}
+header.dark-mode {
+    background: rgb(238,174,202);
+    background: linear-gradient(180deg, rgba(238,174,202,1) 26%, rgba(100,109,231,1) 100%);
+}
+nav.dark-mode{
+    color: rgb(238,174,202);
+    background-color: rgba(238, 174, 202, 0.356);
+}
+.team-info.dark-mode{
+    background-color: rgba(236, 130, 176, 0.356);
+}
+.country.dark-mode{
+    background-color: rgba(236, 130, 176, 0.560);
+}
+.bet-title.dark-mode{
+    background-color: rgb(238,174,202);
+}
+.cookie{
+    background-color: rgba(238, 174, 202, 0.726);
+    width: 30%;
+    border-radius: 15px;
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    border: 1px solid pink;
+    z-index: 1000;
+    text-align: center;
 }

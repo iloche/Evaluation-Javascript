@@ -1,0 +1,40 @@
+{
+  "test_framework": "qunit",
+  "test_path": ["test/index.html"],
+  "exit_with_fail": true,
+  "browsers": [
+    "chrome_latest",
+    "chrome_previous",
+    "firefox_latest",
+    "firefox_previous",
+    "opera_latest",
+    {
+      "browser": "safari",
+      "browser_version": "latest",
+      "os": "OS X",
+      "os_version": "Big Sur"
+    },
+    {
+      "browser": "safari",
+      "browser_version": "latest",
+      "os": "OS X",
+      "os_version": "Catalina"
+    },
+    {
+      "device": "iPhone 11",
+      "real_mobile": "true",
+      "os": "ios",
+      "os_version": "13",
+      "browserstack.local": "false",
+      "browserstack.appium_version": "1.14.0"
+    },
+    {
+      "device": "Google Pixel 6",
+      "real_mobile": "true",
+      "os": "android",
+      "os_version": "12.0",
+      "browserstack.local": "false",
+      "browserstack.appium_version": "1.14.0"
+    }
+  ]
+}

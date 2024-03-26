@@ -10,10 +10,14 @@
     <title>1Bet1Day</title>
 </head>
 <body>
+    <div class="cookie">
+        <p>Nous utilisons des cookies pour améliorer votre expérience.</p>
+        <button class="accept">Accepter</button>
+        <button class="refuse">Refuser</button>
+      </div>
     <header>
         <img src="images/logo.png" alt="Logo">
-        <i class="fa-solid fa-moon" ></i>
-        <i class="fa-solid fa-sun hidden"></i>
+        <i class="fa-solid fa-moon toggle-mode"></i>
     </header>
     <main>
         <nav>
@@ -63,6 +67,9 @@
             </div>
         </div>
     </main>
+      <script src="
+      https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js
+      "></script>
     <script src="scripts/main.js"></script>
 </body>
 </html>

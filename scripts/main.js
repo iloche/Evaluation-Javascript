@@ -12,6 +12,8 @@ let box = document.querySelector('.box'),
     finalTotal = document.querySelector(".finalTotal"),
     userChoice = document.querySelector(".user-choice")
 
+    // Grosse prise de risque car je n'ai pas fait de tableau pour retirer les éléments ciblés, soorrrryyyy :p MAIS, ça marche héhé
+
 // 🎀⭐🎀⭐🎀⭐🎀⭐🎀⭐🎀⭐🎀⭐🎀⭐🎀⭐🎀⭐🎀⭐🎀⭐🎀⭐🎀⭐🎀⭐🎀 
 
 // ⭐ // // // // // // // // Fonctions // // // // // // // // // // // // ⭐
@@ -71,7 +73,7 @@ function randomBG(){
       randomChoice = Math.floor(Math.random() * backgrounds.length),
       rightContent = document.querySelector(".right-content")
 
-    rightContent.style.backgroundImage = `url(../../images/${backgrounds[randomChoice]})`
+    rightContent.style.backgroundImage = `url(../images/${backgrounds[randomChoice]})`
 }
 
 // Appel de la fonction pour afficher l'image de fond
@@ -113,7 +115,7 @@ function calculGainTotal() {
     // Mise à jour de l'élément miseTotal avec le résultat calculé
     miseTotal.innerHTML = 
     `
-    <strong>${(Math.round(totalMise / 10 * 100) / 100).toFixed(2)}</strong>
+    <strong>${(Math.round(totalMise / 10 * 100) / 10).toFixed(2)}</strong>
     `;
   
     // Mise à jour de l'élément finalTotal avec le résultat calculé
@@ -136,12 +138,12 @@ calculGainTotal();
 
 ////////////////////////////////////////////////////////////////////////////////////////
 
-function checkEmpty() {
-  if (userChoice.childElementCount === 0) {
-      console.log("teste");
-  }
+// Fonction pour vérifier si un ID existe déjà dans le panier
+function idExist(id) {
+  // Sélectionnez tous les ID des matchs dans le panier
+  const existingItem = userChoice.querySelector(`[data-id="${id}"]`);
+  return existingItem !== null;
 }
-checkEmpty()
 
 // 🏵️⭐🏵️⭐🏵️⭐🏵️⭐🏵️⭐🏵️⭐🏵️⭐🏵️⭐🏵️⭐🏵️⭐🏵️⭐🏵️⭐🏵️⭐🏵️⭐🏵️  
 
@@ -167,25 +169,40 @@ box.addEventListener("click", function (e) {
     // Sélectionner les attributs personnalisés du bouton cliqué
     const team = e.target.dataset.team;
     const odd = e.target.dataset.odd;
+    
+    // Récupère l'ID associé à l'élément cliqué
+    const idWrapper = e.target.closest('.match-info').getAttribute('data-id');
+
+    // Vérifie si cet ID existe déjà dans le panier
+    if (idExist(idWrapper)) {
+      const existingItem = userChoice.querySelector(`[data-id="${idWrapper}"]`);
+      existingItem.closest('.selectedChoice').remove();
+    }
 
     // Sélectionner le titre du match associé au bouton cliqué
     const teamInfo = e.target.closest('.match-info').querySelector('.title').textContent;
 
     // Vérifie si le bouton était inactif avant le clic
     if (!isActive) {
-      // Ajoute le contenu HTML de la mise sélectionnée dans la section "user-choice"
-      userChoice.innerHTML += `
-        <div class="selectedChoice">
-          <div class="choice">
-            <strong>${team}</strong> ${odd}
-            <span class="delete-task" title="Supprimer la mise">🗑️</span>
+     // Vérifie si nbr est inférieur à 8 pour le bloquer
+      if (nbr < 8) { 
+         // Ajoute le contenu HTML de la mise sélectionnée dans la section "user-choice"
+        userChoice.innerHTML += `
+          <div class="selectedChoice">
+            <div class="choice">
+              <strong>${team}</strong> ${odd}
+              <span class="delete-task" title="Supprimer la mise">🗑️</span>
+            </div>
+            <div class="choice">
+              <p data-id=${idWrapper}>${teamInfo}</p>
+            </div>
           </div>
-          <div class="choice">
-            <p>${teamInfo}</p>
-          </div>
-        </div>
-      `;
+        `;
       nbr++;
+      
+      // Recalcule le gain total
+      calculGainTotal()
+      }
     } else {
       // Récupère l'élément correspondant à l'équipe et à la cote du bouton cliqué
       let selectedChoice = e.target.closest('.selectedChoice');
@@ -194,7 +211,6 @@ box.addEventListener("click", function (e) {
         // Supprime l'élément de la section "user-choice"
         selectedChoice.remove()
       }
-
       nbr--;
     }
 
@@ -215,7 +231,12 @@ userChoice.addEventListener("click", function(e) {
     const selectedChoice = e.target.closest(".selectedChoice");
     if (selectedChoice) {
       selectedChoice.remove();
-      
+
+      // Récupère l'élément .active et enlève la classe "active" s'il existe
+      const activeButton = document.querySelector('.active');
+      if (activeButton) {
+        activeButton.classList.remove('active');
+      }
       // Recalcule le gain total
       calculGainTotal();
     }
@@ -227,4 +248,80 @@ userChoice.addEventListener("click", function(e) {
   // Affiche ou cache l'élément .visible en fonction de nbr
   const visible = document.querySelector(".visible");
   visible.classList.toggle('show', nbr > 0);
+});
+
+////////////////////////////////////////////////////////////////////////////////////////
+
+const toggleIcon = document.querySelector('.toggle-mode');
+
+// Tableau d'objets qui regroupe plusieurs éléments du DOM
+const darkElements = [
+  document.querySelector("header"),
+  document.querySelector("nav"),
+  document.querySelector(".team-info"),
+  document.querySelector(".country"),
+  document.querySelector(".bet-title")
+];
+
+// Écouteur d'événements pour basculer entre les modes
+toggleIcon.addEventListener('click', function() {
+  // Changez l'icône entre fa-moon et fa-sun
+  toggleIcon.classList.toggle('fa-moon');
+  toggleIcon.classList.toggle('fa-sun');
+
+  // Parcours des éléments et ajout/suppression de la classe dark-mode
+  darkElements.forEach(element => {
+    element.classList.toggle('dark-mode');
+  });
+
+  // Enregistrer l'état du mode sombre dans localStorage
+  const isDarkModeEnabled = document.querySelector("header").classList.contains('dark-mode');
+  localStorage.setItem('darkModeEnabled', isDarkModeEnabled);
+});
+
+// Vérifier si le mode sombre est activé lors du chargement de la page
+document.addEventListener('DOMContentLoaded', function() {
+  const isDarkMode = localStorage.getItem('darkModeEnabled') === 'true'; 
+  if (isDarkMode) {
+    // Changez l'icône entre fa-moon et fa-sun
+    toggleIcon.classList.toggle('fa-moon');
+    toggleIcon.classList.toggle('fa-sun');
+
+    // Ajoutez ou supprimez la classe dark-mode
+    darkElements.forEach(element => {
+      element.classList.add('dark-mode');
+    });
+  }
+});
+
+////////////////////////////////////////////////////////////////////////////////////////
+
+document.addEventListener('DOMContentLoaded', function() {
+  const cookie = document.querySelector(".cookie");
+  const accept = document.querySelector(".accept");
+  const refuse = document.querySelector(".refuse");
+
+  // Afficher le pop-up
+  cookie.style.display = 'block';
+
+  // Gérer l'événement du bouton Accepter
+  accept.addEventListener('click', function() {
+      // Définir le cookie de consentement
+      Cookies.set('consent', 'true');
+      console.log('Consentement accepté');
+      cookie.style.display = 'none'; 
+  });
+
+  // Gérer l'événement du bouton Refuser
+  refuse.addEventListener('click', function() {
+      Cookies.set('consent', 'false');
+      console.log('Consentement refusé');
+      cookie.style.display = 'none'; 
+  });
+
+  // Vérifier si l'utilisateur a déjà donné son consentement
+  const consent = Cookies.get('consent');
+  if (consent === 'true'|| consent === 'false') {
+      cookie.style.display = 'none';
+  }
 });
