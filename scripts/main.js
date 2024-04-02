@@ -103,25 +103,29 @@ function calculGainTotal() {
   let selectedButtons = document.querySelectorAll('.active');
   let montantMise = parseFloat(userInput.value); 
   let totalMise = montantMise;
+  let totalOdd = 1; // Initialisation du produit des cotes à 1
 
   // Parcours des boutons actifs pour calculer le produit des cotes
   selectedButtons.forEach(btn => {
-     // Récupération de la cote du bouton
+    // Récupération de la cote du bouton
     let odd = parseFloat(btn.dataset.odd);
     // Multiplication du total par la cote
-    totalMise *= odd; 
+    totalOdd *= odd;
   });
+
+    // Calcul du montant total
+    let gainTotal = totalMise * totalOdd;
 
     // Mise à jour de l'élément miseTotal avec le résultat calculé
     miseTotal.innerHTML = 
     `
-    <strong>${(Math.round(totalMise / 10 * 100) / 10).toFixed(2)}</strong>
+    <strong>${(Math.round(totalOdd * 100) / 100).toFixed(2)}</strong>
     `;
-  
+
     // Mise à jour de l'élément finalTotal avec le résultat calculé
     finalTotal.innerHTML = 
     `
-    <strong>${(Math.round(totalMise * 10) / 10).toFixed(2)}€</strong>
+    <strong>${(Math.round(gainTotal * 10) / 10).toFixed(2)}€</strong>
     `;
 }
 
@@ -216,6 +220,9 @@ box.addEventListener("click", function (e) {
 
     // Met à jour le contenu de l'élément count avec nbr
     count.innerHTML = nbr;
+
+    // Recalcule le gain total
+    calculGainTotal()
 
     // Affiche ou cache l'élément .visible en fonction de nbr
     const visible = document.querySelector(".visible");
